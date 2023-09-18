@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
  # ---------------------------------------------------------------------------------------------
  # Script :run
@@ -29,6 +28,18 @@ sudo apt update && sudo apt install python3-pip
 
 echo "Instalando bibliotecas necessarias do python"
 pip install pynvim
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python2-dev python3-dev aria2
+
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+
+PYENV_PATH="export PYTHON_BUILD_ARIA2_OPTS=\"-x 10 -k 1M\" \n
+	  export PATH=\"~/.pyenv/bin:$PATH\" \n
+	  eval \"$(pyenv init --path)\" \n
+	  eval \"$(pyenv init -)\" \n
+	  eval \"$(pyenv virtualenv-init -)\" \n
+"
+
+echo -e $PYENV_PATH > ~/.bash_profile
 
 echo -e "alias python=python3 \n
 	    alias v=nvim " > ~/.bash_aliases
@@ -46,7 +57,7 @@ nvm install --lts
 
 ##instalando o nvim
 sudo add-apt-repository ppa:neovim-ppa/unstable -y; sudo apt-get update; sudo apt install neovim -y
-
+sudo apt install xclip -y
 
 
 ##criando configuração para o neovim
@@ -99,9 +110,11 @@ set splitbelow       \" Create the horizontal splits below \n
 set autoread         \" Update vim after file update from outside \n
 set mouse=a          \" Enable mouse support \n
 filetype on          \" Detect and set the filetype option and trigger the FileType Event \n
+
+
 filetype plugin on   \" Load the plugin file for the file type, if any \n
 filetype indent on   \" Load the indent file for the file type, if any \n
-
+set clipboard=unnamedplus \n
 \n
 \n
 \n
@@ -112,6 +125,7 @@ map <C-h> <C-w>h \n
 map <C-j> <C-w>j \n
 map <C-k> <C-w>k \n
 map <C-l> <C-w>l \n
+map <space-e> <C-e> \n
 
 
 \"um autocmd é comum quando eu quero que determinada rotina seja executada quando um evento \n
@@ -373,7 +387,69 @@ endfunction \n
 \n
 let g:coc_snippet_next = '<tab>' \n
 
+\" Coc Explorer \n
+\":nnoremap <space>e :CocCommand explorer<CR> \n
+:nnoremap <C-e> : CocCommand explorer<CR> \n
+
+\n
+
+let g:coc_explorer_global_presets = { \n
+\   '.vim': { \n
+\     'root-uri': '~/.vim', \n
+\   }, \n
+\   'cocConfig': { \n
+\      'root-uri': '~/.config/coc', \n
+\   }, \n
+\   'tab': { \n
+\     'position': 'tab', \n
+\     'quit-on-open': v:true, \n
+\   }, \n
+\   'tab:$': { \n
+\     'position': 'tab:$', \n
+\     'quit-on-open': v:true, \n
+\   }, \n
+\   'floating': { \n
+\     'position': 'floating', \n
+\     'open-action-strategy': 'sourceWindow', \n
+\   }, \n
+\   'floatingTop': { \n
+\     'position': 'floating', \n
+\     'floating-position': 'center-top', \n
+\     'open-action-strategy': 'sourceWindow', \n
+\   }, \n
+\   'floatingLeftside': { \n
+\     'position': 'floating' , \n
+\     'floating-position': 'left-center', \n
+\     'floating-width': 50, \n
+\     'open-action-strategy': 'sourceWindow', \n
+\   }, \n
+\   'floatingRightside': { \n
+\     'position': 'floating', \n
+\     'floating-position': 'right-center', \n
+\     'floating-width': 50, \n
+\     'open-action-strategy': 'sourceWindow', \n
+\   }, \n
+
+\   'simplify': { \n
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'  \n
+\   }, \n
+\   'buffer': { \n
+\     'sources': [{'name': 'buffer', 'expand': v:true}] \n
+\   }, \n
+\ } \n
+
+\" Use preset argument to open it \n
+nnoremap <space>ed :CocCommand explorer --preset .vim<CR> \n
+nnoremap <space>ef :CocCommand explorer --preset floating<CR> \n
+nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR> \n
+nnoremap <space>eb :CocCommand explorer --preset buffer<CR> \n
+\n
+
+\" List all presets \n
+nnoremap <space>el :CocList explPresets \n
+
 "
+
 
 echo -e $CONTENT > ~/.config/nvim/init.vim
 
@@ -382,8 +458,20 @@ VAR_COC_CONFIG="
     "languageserver": { \n
 	\n
 
-    } \n
+    }, \n
+	\"explorer.width\": 30, \n
+	\"explorer.icon.enableNerdfont\": true, \n
+	\"explorer.previewAction.onHover\": false, \n
+	\"explorer.keyMappings.global\": { \n
+	\"<cr>\": [\"expandable?\", \"expand\", \"open\"], \n
+    	\"v\": \"open:vsplit\", \n
+   	 \"h\": \"open:split\" \n
+}, \n
+\"explorer.git.enable\": true \n
  }\n
+
+
+
 
 "
 
