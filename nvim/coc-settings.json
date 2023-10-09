@@ -1,0 +1,42 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "sass",
+    "scss",
+    "markdown",
+    "html",
+    "json",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "python"
+  ],
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "~/.local/bin/black",
+  "prettier.singleQuote": true,
+  "javascript.autoClosingTags": true,
+  "typescript.autoClosingTags": true,
+  "emmet.includeLanguages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
+  "codeLens.enable": false,
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings.global": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit",
+    "h": "open:split",
+    "r": "rename",
+    "af": "addFile",
+    "ad": "addDirectory",
+    "cf": "copyFile",
+    "d": "delete",
+  },
+"explorer.git.enable": true
+}
